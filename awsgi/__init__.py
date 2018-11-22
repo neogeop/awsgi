@@ -46,7 +46,9 @@ def environ(event, context):
         'REQUEST_METHOD': event['httpMethod'],
         'SCRIPT_NAME': '',
         'PATH_INFO': event['path'],
-        'QUERY_STRING': urlencode(event['queryStringParameters'] or {}),
+        'QUERY_STRING': urlencode(
+            event['multiValueQueryStringParameters'] or {},
+            doseq=True),
         'REMOTE_ADDR': '127.0.0.1',
         'CONTENT_LENGTH': str(len(event.get('body', '') or '')),
         'HTTP': 'on',

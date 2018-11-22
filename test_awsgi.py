@@ -37,6 +37,9 @@ class TestAwsgi(unittest.TestCase):
             'queryStringParameters': {
                 'test': '✓',
             },
+            'multiValueQueryStringParameters': {
+                'test': ['✓'],
+            },
             'body': u'test',
             'headers': {
                 'X-test-suite': 'testing',
@@ -51,7 +54,7 @@ class TestAwsgi(unittest.TestCase):
             'REQUEST_METHOD': event['httpMethod'],
             'SCRIPT_NAME': '',
             'PATH_INFO': event['path'],
-            'QUERY_STRING': urlencode(event['queryStringParameters']),
+            'QUERY_STRING': urlencode(event['multiValueQueryStringParameters'], doseq=True),
             'CONTENT_LENGTH': str(len(event['body'])),
             'HTTP': 'on',
             'SERVER_PROTOCOL': 'HTTP/1.1',
